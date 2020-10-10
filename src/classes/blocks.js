@@ -1,3 +1,5 @@
+import { navs, toCss } from "./utils"
+
 class Block {
   constructor(value, options) {
     this.value = value
@@ -14,7 +16,6 @@ export class Navbar extends Block {
   }
   toHTML() {
     const { tag, styles } = this.options
-    console.log(styles)
         
     return (
       `<nav class="navbar navbar-${styles.text} navbar-expand-lg bg-${styles.background}">
@@ -22,16 +23,10 @@ export class Navbar extends Block {
         <${tag} class="navbar-brand">
           ${this.value}
         </${tag}>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link">Главная</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">Информация</a>
-      </li>
-    </ul>
+        ${ navs() }
    </div>
-  </nav>`
+  </nav>
+  <hr>`
     )
   }
 }
@@ -41,14 +36,20 @@ export class Input extends Block {
     super(value, options)
   }
   toHTML() {
-    <form>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Введите заметку"/>
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Записать</button>
-      </div>
-    </div>
-  </form>
+    return (
+     `<form class="container">
+     <div class="input-group mb-3">
+       <input
+        type="text"
+        style="${toCss(this.options.styles)}" 
+        name="text" class="form-control"
+        placeholder="${this.value}"/>
+       <div class="input-group-append">
+         <button class="btn btn-outline-secondary" type="submit">Записать</button>
+       </div>
+     </div>
+    </form>`
+   )
   }
 }
 
@@ -57,20 +58,22 @@ export class Note extends Block {
     super(value, options)
   }
   toHTML() {
-    <ul class="list-group">
-    <li class="list-group-item note">
-      <div>
-        <strong>купить картошку</strong>
-        <small>09.10.2020</small>
-      </div>
-    
-      <button
-       type="button" 
-       class="btn btn-outline-danger btm-sm"          
-      >
-      &times;
-      </button>
-    </li>
-   </ul>
+    return (
+     `<ul class="list-group container">
+     <li class="list-group-item note">
+       <div>
+         <strong>${this.value}</strong>
+         <small>09.10.2020</small>
+       </div>
+     
+       <button
+        type="button" 
+        class="btn btn-outline-danger btm-sm"          
+       >
+       &times;
+       </button>
+     </li>
+    </ul>`
+   )
   }
 }

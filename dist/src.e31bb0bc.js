@@ -117,13 +117,175 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"classes/site.js":[function(require,module,exports) {
+})({"classes/utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.onDelete = exports.toCss = exports.toContainer = exports.navs = void 0;
+
+var navs = function navs() {
+  return "<ul class=\"navbar-nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\">\u0413\u043B\u0430\u0432\u043D\u0430\u044F</a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\">\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F</a>\n    </li>\n  </ul>";
+};
+
+exports.navs = navs;
+
+var toContainer = function toContainer(content) {
+  return "<div class=\"container\">\n      ".concat(content, "\n    </div>");
+};
+
+exports.toContainer = toContainer;
+
+var toCss = function toCss() {
+  var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var keys = Object.keys(styles);
+  var arr = keys.map(function (key) {
+    return "".concat(key, ": ").concat(styles[key]);
+  });
+  return arr.join(';');
+  /*  return Object.keys(styles).map(key => `${key}: ${styles[key]}`).join(';') */
+};
+
+exports.toCss = toCss;
+
+var onDelete = function onDelete(deleteBtns, model) {
+  deleteBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {});
+  });
+};
+
+exports.onDelete = onDelete;
+},{}],"classes/blocks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Note = exports.Input = exports.Navbar = void 0;
+
+var _utils = require("./utils");
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Block = /*#__PURE__*/function () {
+  function Block(value, options) {
+    _classCallCheck(this, Block);
+
+    this.value = value;
+    this.options = options;
+  }
+
+  _createClass(Block, [{
+    key: "toHTML",
+    value: function toHTML() {
+      throw new Error('метод toHTML должен быть определен');
+    }
+  }]);
+
+  return Block;
+}();
+
+var Navbar = /*#__PURE__*/function (_Block) {
+  _inherits(Navbar, _Block);
+
+  var _super = _createSuper(Navbar);
+
+  function Navbar(value, options) {
+    _classCallCheck(this, Navbar);
+
+    return _super.call(this, value, options);
+  }
+
+  _createClass(Navbar, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var _this$options = this.options,
+          tag = _this$options.tag,
+          styles = _this$options.styles;
+      return "<nav class=\"navbar navbar-".concat(styles.text, " navbar-expand-lg bg-").concat(styles.background, "\">\n      <div class=\"container\">\n        <").concat(tag, " class=\"navbar-brand\">\n          ").concat(this.value, "\n        </").concat(tag, ">\n        ").concat((0, _utils.navs)(), "\n   </div>\n  </nav>\n  <hr>");
+    }
+  }]);
+
+  return Navbar;
+}(Block);
+
+exports.Navbar = Navbar;
+
+var Input = /*#__PURE__*/function (_Block2) {
+  _inherits(Input, _Block2);
+
+  var _super2 = _createSuper(Input);
+
+  function Input(value, options) {
+    _classCallCheck(this, Input);
+
+    return _super2.call(this, value, options);
+  }
+
+  _createClass(Input, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return "<form class=\"container\">\n     <div class=\"input-group mb-3\">\n       <input\n        type=\"text\"\n        style=\"".concat((0, _utils.toCss)(this.options.styles), "\" \n        name=\"text\" class=\"form-control\"\n        placeholder=\"").concat(this.value, "\"/>\n       <div class=\"input-group-append\">\n         <button class=\"btn btn-outline-secondary\" type=\"submit\">\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C</button>\n       </div>\n     </div>\n    </form>");
+    }
+  }]);
+
+  return Input;
+}(Block);
+
+exports.Input = Input;
+
+var Note = /*#__PURE__*/function (_Block3) {
+  _inherits(Note, _Block3);
+
+  var _super3 = _createSuper(Note);
+
+  function Note(value, options) {
+    _classCallCheck(this, Note);
+
+    return _super3.call(this, value, options);
+  }
+
+  _createClass(Note, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return "<ul class=\"list-group container\">\n     <li class=\"list-group-item note\">\n       <div>\n         <strong>".concat(this.value, "</strong>\n         <small>09.10.2020</small>\n       </div>\n     \n       <button\n        type=\"button\" \n        class=\"btn btn-outline-danger btm-sm\"          \n       >\n       &times;\n       </button>\n     </li>\n    </ul>");
+    }
+  }]);
+
+  return Note;
+}(Block);
+
+exports.Note = Note;
+},{"./utils":"classes/utils.js"}],"classes/site.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Site = void 0;
+
+var _blocks = require("./blocks");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -132,10 +294,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Site = /*#__PURE__*/function () {
-  function Site(id) {
+  function Site(id, updateCallback) {
     _classCallCheck(this, Site);
 
     this.id = document.getElementById(id);
+    this.update = updateCallback;
+    this.init(); //  запускаем сразу при вызове new Site
   }
 
   _createClass(Site, [{
@@ -143,9 +307,25 @@ var Site = /*#__PURE__*/function () {
     value: function render(model) {
       var _this = this;
 
+      this.id.innerHTML = ''; // удаляем все содержимое id
+
       model.forEach(function (block) {
-        _this.id.insertAdjacentHTML('afterbegin', block.toHTML());
+        _this.id.insertAdjacentHTML('beforeend', block.toHTML());
       });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.id.addEventListener('submit', this.add.bind(this));
+    }
+  }, {
+    key: "add",
+    value: function add(event) {
+      event.preventDefault();
+      var text = event.target.text.value;
+      var newNote = new _blocks.Note(text);
+      this.update(newNote);
+      event.target.text.value = ''; // очищаем поля ввода
     }
   }]);
 
@@ -153,6 +333,23 @@ var Site = /*#__PURE__*/function () {
 }();
 
 exports.Site = Site;
+},{"./blocks":"classes/blocks.js"}],"classes/notes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Notes = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Notes = function Notes(id) {
+  _classCallCheck(this, Notes);
+
+  this.id = document.getElementById(id);
+};
+
+exports.Notes = Notes;
 },{}],"classes/app.js":[function(require,module,exports) {
 "use strict";
 
@@ -162,6 +359,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.App = void 0;
 
 var _site = require("../classes/site");
+
+var _notes = require("./notes");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -179,8 +378,20 @@ var App = /*#__PURE__*/function () {
   _createClass(App, [{
     key: "init",
     value: function init() {
-      var site = new _site.Site('navbar');
+      var _this = this;
+
+      var updateCallback = function updateCallback(newNote) {
+        // вызывается при событии добавления заметки
+        delete _this.model[2]; // удаляет эл-т массива и не перезаписывая индексы (удаляем заглушку)
+
+        _this.model.push(newNote);
+
+        site.render(_this.model);
+      };
+
+      var site = new _site.Site('site', updateCallback);
       site.render(this.model);
+      new _notes.Notes('notes');
     }
   }]);
 
@@ -188,7 +399,7 @@ var App = /*#__PURE__*/function () {
 }();
 
 exports.App = App;
-},{"../classes/site":"classes/site.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"../classes/site":"classes/site.js","./notes":"classes/notes.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -268,9 +479,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.model = void 0;
 
-var _ = require("./");
+var _blocks = require("./classes/blocks");
 
-var model = [new _.Navbar('Note App based on pure JS', {
+var model = [new _blocks.Navbar('Note App based on pure JS', {
   tag: 'div',
   styles: {
     text: 'dark',
@@ -280,17 +491,17 @@ var model = [new _.Navbar('Note App based on pure JS', {
     /* light */
 
   }
-}), new _.Input('введите текст', {
+}), new _blocks.Input('введите текст', {
   styles: {
     color: '#000'
   }
-}), new _.Note('здесь могла быть ваша заметка', {
+}), new _blocks.Note('здесь могла быть ваша заметка', {
   styles: {
     color: 'black'
   }
 })];
 exports.model = model;
-},{"./":"index.js"}],"index.js":[function(require,module,exports) {
+},{"./classes/blocks":"classes/blocks.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("./css/style.css");
@@ -329,7 +540,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53067" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58142" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
